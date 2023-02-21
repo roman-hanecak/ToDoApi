@@ -23,3 +23,5 @@ services:
 # Names our volume
 volumes:
   my-db:
+
+    # docker-compose -f docker-compose.yml up

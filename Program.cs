@@ -21,6 +21,7 @@ builder.Services.AddEntityFrameworkMySQL().AddDbContext<ApplicationContext>(opti
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITaskItemService, TaskItemService>();
+builder.Services.AddTransient<ITaskListService, TaskListService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

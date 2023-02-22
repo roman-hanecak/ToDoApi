@@ -27,6 +27,7 @@ namespace ToDoApi.Entities.Model
             return new TaskItem
             {
                 Title = Title,
+                PublicId = Guid.NewGuid(),
                 Description = Description,
                 CreatedDate = CreatedDate,
                 EndDate = EndDate,

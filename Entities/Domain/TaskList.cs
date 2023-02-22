@@ -11,7 +11,7 @@ namespace ToDoApi.Entities.Domain
         [Key]
         public int Id { get; set; }
         [Required]
-        public Guid? PublicId { get; set; }
+        public Guid PublicId { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
         // one-to-many
@@ -22,7 +22,8 @@ namespace ToDoApi.Entities.Domain
             return new TaskListDto
             {
                 Title = Title,
-                TasksList = TaskItems?.Select(x => x.ToDto()).ToList()
+                PublicId = PublicId
+                //TasksList = TaskItems?.Select(x => x.ToDto()).ToList()
             };
         }
     }

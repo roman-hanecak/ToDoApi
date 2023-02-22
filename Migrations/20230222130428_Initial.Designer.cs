@@ -11,7 +11,7 @@ using ToDoApi.Database;
 namespace ToDoApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230222071024_Initial")]
+    [Migration("20230222130428_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,14 +67,14 @@ namespace ToDoApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<Guid?>("PublicId")
                         .IsRequired()
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

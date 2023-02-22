@@ -27,7 +27,7 @@ namespace ToDoApi.Entities.Domain
         public Boolean Completed { get; set; }
 
         //foreign key
-        //public int ItemListId { get; set; }
+        public Guid TaskListId { get; set; }
         //public virtual ItemList ItemList { get; set; }
 
         public TaskItemDto ToDto()

@@ -42,7 +42,7 @@ namespace ToDoApi.Services
 
         public async Task<TaskItemDto> CreateAtTaskListAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
         {
-            var taskList = await _context.TaskLists.AsNoTracking().Include(x => x.PublicId == taskListId).SingleOrDefaultAsync();
+            var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
             if (taskList == null)
             {
                 throw new Exception($"TaskList with Id: {taskListId} doesnt exists!");
@@ -57,7 +57,7 @@ namespace ToDoApi.Services
             taskItem.PublicId = Guid.NewGuid();
             taskItem.CreatedDate = DateTime.UtcNow;
             taskItem.Completed = false;
-            //taskItem.TaskListId = taskListId;
+            taskItem.TaskListId = taskListId;
 
             await _context.Tasks.AddAsync(taskItem, ct);
             await _context.SaveChangesAsync(ct);
@@ -102,7 +102,7 @@ namespace ToDoApi.Services
 
         public async Task<TaskItemDto> UpdateAsync(Guid taskId, TaskItemModel model, CancellationToken ct = default)
         {
-            var taskItem = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync();
+            var taskItem = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskId);
             if (taskItem == null)
             {
                 throw new Exception($"Task with Id {taskId} doesnt exists!");
@@ -119,9 +119,17 @@ namespace ToDoApi.Services
             //throw new NotImplementedException();
         }
 
-        public Task<TaskItemDto> UpdateAtTaskListAsync(Guid taskListId, Guid taskId, TaskItemModel model, CancellationToken ct = default)
+        public async Task<TaskItemDto> UpdateAtTaskListAsync(Guid taskListId, Guid taskId, TaskItemModel model, CancellationToken ct = default)
         {
+            // var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
+
+            // if(taskList == null){
+            //     throw new Exception($"List with given Id {taskListId} wasnt found!");
+            // }
+
+            // var taskItem = await _context.TaskLists.AsNoTracking()
             throw new NotImplementedException();
+
         }
 
         public Task<TaskItemDto> DeleteAtTaskListAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)

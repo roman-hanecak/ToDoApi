@@ -77,6 +77,8 @@ namespace ToDoApi.Services
 
         }
 
+
+
         public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
         {
             var tasks = await _context.Tasks.AsNoTracking().ToListAsync(ct);
@@ -117,7 +119,12 @@ namespace ToDoApi.Services
             //throw new NotImplementedException();
         }
 
-        public Task<TaskItemDto> UpdateAsync(Guid taskListId, Guid taskId, TaskItemModel model, CancellationToken ct = default)
+        public Task<TaskItemDto> UpdateAtTaskListAsync(Guid taskListId, Guid taskId, TaskItemModel model, CancellationToken ct = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TaskItemDto> DeleteAtTaskListAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }

@@ -3095,31 +3095,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\roman.hanecak\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\roman\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\roman.hanecak\\Documents\\GitHub\\ToDoApi\\ToDoApi.csproj",
+      "projectUniqueName": "C:\\Users\\roman\\Documents\\GitHub\\ToDoApi\\ToDoApi.csproj",
       "projectName": "ToDoApi",
-      "projectPath": "C:\\Users\\roman.hanecak\\Documents\\GitHub\\ToDoApi\\ToDoApi.csproj",
-      "packagesPath": "C:\\Users\\roman.hanecak\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\roman.hanecak\\Documents\\GitHub\\ToDoApi\\obj\\",
+      "projectPath": "C:\\Users\\roman\\Documents\\GitHub\\ToDoApi\\ToDoApi.csproj",
+      "packagesPath": "C:\\Users\\roman\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\roman\\Documents\\GitHub\\ToDoApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\roman.hanecak\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\roman\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

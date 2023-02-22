@@ -21,8 +21,32 @@ namespace ToDoApi.Services
             _context = context;
         }
 
-        public async Task<TaskItemDto> CreateAsync(TaskItemModel model, CancellationToken ct = default)
+        // public async Task<TaskItemDto> CreateAsync(TaskItemModel model, CancellationToken ct = default)
+        // {
+
+        //     var taskItem = new TaskItem
+        //     {
+        //         PublicId = Guid.NewGuid(),
+        //         Title = model.Title,
+        //         Description = model.Description,
+        //         CreatedDate = DateTime.UtcNow,
+        //         EndDate = model.EndDate,
+        //         Completed = false
+        //     };
+        //     //System.Console.WriteLine(taskItem);
+        //     await _context.Tasks.AddAsync(taskItem);
+        //     await _context.SaveChangesAsync();
+
+        //     return taskItem.ToDto();
+        // }
+
+        public async Task<TaskItemDto> CreateAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
         {
+            var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
+            if (taskList == null)
+            {
+                throw new Exception($"TaskList with Id: {taskListId} doesnt exists!");
+            }
 
             var taskItem = new TaskItem
             {
@@ -31,33 +55,15 @@ namespace ToDoApi.Services
                 Description = model.Description,
                 CreatedDate = DateTime.UtcNow,
                 EndDate = model.EndDate,
-                Completed = false
+                Completed = false,
+                TaskListId = taskList.Id
             };
-            //System.Console.WriteLine(taskItem);
-            await _context.Tasks.AddAsync(taskItem);
-            await _context.SaveChangesAsync();
-
-            return taskItem.ToDto();
-        }
-
-        public async Task<TaskItemDto> CreateAtTaskListAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
-        {
-            var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
-            if (taskList == null)
-            {
-                throw new Exception($"TaskList with Id: {taskListId} doesnt exists!");
-            }
-
-            if (await _context.Tasks.AnyAsync(x => x.Title == model.Title && x.PublicId != taskListId, ct))
-            {
-                throw new Exception($"TaskItem with name {model.Title} already exists");
-            }
-
-            var taskItem = model.ToDomain();
-            taskItem.PublicId = Guid.NewGuid();
-            taskItem.CreatedDate = DateTime.UtcNow;
-            taskItem.Completed = false;
-            taskItem.TaskListId = taskListId;
+            //model.ToDomain();
+            // taskItem.PublicId = Guid.NewGuid();
+            // taskItem.CreatedDate = DateTime.UtcNow;
+            // taskItem.Completed = false;
+            // taskItem.Id = taskList.Id;
+            //taskItem.TaskListId = taskListId;
 
             await _context.Tasks.AddAsync(taskItem, ct);
             await _context.SaveChangesAsync(ct);

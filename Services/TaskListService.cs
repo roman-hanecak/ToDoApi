@@ -19,8 +19,8 @@ namespace ToDoApi.Services
         {
             _context = context;
         }
-        
-        public async Task<TaskListDto> CreateAsync(TaskListModel model, CancellationToken ct = default)
+
+        public async Task<TaskListDto> CreateAsync(Guid userId, TaskListModel model, CancellationToken ct = default)
         {
             //var taskList = model.ToDomain();
             //taskList.PublicId = Guid.NewGuid();
@@ -31,14 +31,19 @@ namespace ToDoApi.Services
             //         Title = model.Title,
             //         TaskItems = model.Tasks
             // };
+            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
+            if (user == null)
+            {
+                throw new Exception($"User with Id {userId} doesnt exists!");
+            }
 
             var taskList = new TaskList
             {
                 PublicId = Guid.NewGuid(),
                 Title = model.Title,
+                UserId = user.Id
                 //TaskItems = model.Tasks.Select(x => x.ToDomain()).ToList()
             };
-
             await _context.TaskLists.AddAsync(taskList);
             await _context.SaveChangesAsync();
 
@@ -78,7 +83,8 @@ namespace ToDoApi.Services
             return taskList.ToDto();
         }
 
-        public Task<TaskListDto> GetByUserAsync(Guid userId, CancellationToken ct = default)
+
+        public Task<TaskListDto> GetByUserAsync(Guid userId, Guid taskListId, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -100,6 +106,6 @@ namespace ToDoApi.Services
             return taskList.ToDto();
         }
 
-        
+
     }
 }

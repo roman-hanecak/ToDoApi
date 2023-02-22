@@ -131,3 +131,4 @@ C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\obj\Debug\net7.0\ToDoApi.pdb
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\obj\Debug\net7.0\ToDoApi.genruntimeconfig.cache
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\obj\Debug\net7.0\ref\ToDoApi.dll
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Annotations.dll

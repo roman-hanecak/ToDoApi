@@ -16,5 +16,6 @@ namespace ToDoApi.Services.Interfaces
         Task<UserDto> CreateUserAsync(UserModel model, CancellationToken ct = default);
         Task<UserDto> UpdateUserAsync(Guid userId, UserModel model, CancellationToken ct = default);
         Task DeleteUserAsync(Guid userId, CancellationToken ct = default);
+        Task<UserDto> LoginUserAsync(string email, string password, CancellationToken ct = default);
     }
 }

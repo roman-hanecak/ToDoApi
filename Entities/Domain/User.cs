@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoApi.Entities.DTO;
 
 namespace ToDoApi.Entities.Domain
 {
@@ -19,12 +20,29 @@ namespace ToDoApi.Entities.Domain
         [Required, StringLength(50)]
         public string Email { get; set; }
         [Required]
-        public byte[] Password { get; set; } = new byte[0];
+        public string Password { get; set; }
         [Required]
         public byte[] PasswordSalt { get; set; } = new byte[0];
 
         public byte[] PasswordHash { get; set; } = new byte[0];
 
+        public string Image { get; set; }
+
+        //foreign key
+
         public virtual ICollection<TaskList> TaskLists { get; set; }
+
+        public UserDto ToDto()
+        {
+            return new UserDto
+            {
+                PublicId = PublicId,
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                Image = Image,
+                TaskLists = TaskLists
+            };
+        }
     }
 }

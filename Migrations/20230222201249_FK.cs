@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ToDoApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class FK : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,9 +25,10 @@ namespace ToDoApi.Migrations
                     FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<byte[]>(type: "longblob", nullable: false),
+                    Password = table.Column<string>(type: "longtext", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false)
+                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +44,7 @@ namespace ToDoApi.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     PublicId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +53,8 @@ namespace ToDoApi.Migrations
                         name: "FK_TaskLists_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -68,7 +70,7 @@ namespace ToDoApi.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Completed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    TaskListId = table.Column<int>(type: "int", nullable: true)
+                    TaskListId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +79,8 @@ namespace ToDoApi.Migrations
                         name: "FK_Tasks_TaskLists_TaskListId",
                         column: x => x.TaskListId,
                         principalTable: "TaskLists",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 

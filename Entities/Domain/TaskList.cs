@@ -15,6 +15,11 @@ namespace ToDoApi.Entities.Domain
         [Required, StringLength(100)]
         public string Title { get; set; }
         // one-to-many
+
+        [Required]
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+
         public virtual ICollection<TaskItem> TaskItems { get; set; }
 
         public TaskListDto ToDto()

@@ -18,6 +18,7 @@ namespace ToDoApi.Entities.Model
         public string Email { get; set; }
 
         [Required]
-        public byte[] Password { get; set; } = new byte[0];
+        public string Password { get; set; }
+        public string Image { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace ToDoApi.Migrations
                         .IsRequired()
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("TaskListId")
+                    b.Property<int>("TaskListId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -64,8 +64,7 @@ namespace ToDoApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PublicId")
-                        .IsRequired()
+                    b.Property<Guid>("PublicId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Title")
@@ -73,7 +72,7 @@ namespace ToDoApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -99,14 +98,18 @@ namespace ToDoApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -127,16 +130,24 @@ namespace ToDoApi.Migrations
 
             modelBuilder.Entity("ToDoApi.Entities.Domain.TaskItem", b =>
                 {
-                    b.HasOne("ToDoApi.Entities.Domain.TaskList", null)
+                    b.HasOne("ToDoApi.Entities.Domain.TaskList", "TaskList")
                         .WithMany("TaskItems")
-                        .HasForeignKey("TaskListId");
+                        .HasForeignKey("TaskListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TaskList");
                 });
 
             modelBuilder.Entity("ToDoApi.Entities.Domain.TaskList", b =>
                 {
-                    b.HasOne("ToDoApi.Entities.Domain.User", null)
+                    b.HasOne("ToDoApi.Entities.Domain.User", "User")
                         .WithMany("TaskLists")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ToDoApi.Entities.Domain.TaskList", b =>

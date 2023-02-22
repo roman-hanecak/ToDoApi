@@ -55,13 +55,13 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskListDto))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [SwaggerOperation(
-            summary: "Create new TaskList",
+            summary: "Create new TaskList for User",
             description: "Create new TaskList in the database",
             OperationId = "CreateTaskList",
             Tags = new[] { "TaskList API" })]
-        public async Task<IActionResult> CreateTaskListAsync([FromBody, Bind] TaskListModel model, CancellationToken ct)
+        public async Task<IActionResult> CreateTaskListAsync(Guid userId, [FromBody, Bind] TaskListModel model, CancellationToken ct)
         {
-            TaskListDto taskListDto = await _taskListService.CreateAsync(model, ct);
+            TaskListDto taskListDto = await _taskListService.CreateAsync(userId, model, ct);
 
             return CreatedAtRoute(
                 new { task_item_id = taskListDto.PublicId },
@@ -115,7 +115,7 @@ namespace ToDoApi.Controllers
             [FromServices] ITaskItemService taskItemService,
             CancellationToken ct)
         {
-            TaskItemDto taskItemDto = await taskItemService.CreateAtTaskListAsync(taskListId.Value, model, ct);
+            TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId.Value, model, ct);
             return CreatedAtRoute(
                 new { task_list_id = taskItemDto.PublicId },
                 taskItemDto);

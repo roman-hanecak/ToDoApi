@@ -11,8 +11,8 @@ using ToDoApi.Database;
 namespace ToDoApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230221183424_another")]
-    partial class another
+    [Migration("20230222071024_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

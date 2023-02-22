@@ -5,19 +5,22 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using MySql.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
+using ToDoApi.Services.Interfaces;
+using ToDoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddEntityFrameworkMySQL().AddDbContext < ApplicationContext > (options => {
+builder.Services.AddEntityFrameworkMySQL().AddDbContext<ApplicationContext>(options =>
+{
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
-  });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddTransient<ITaskItemService, TaskItemService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

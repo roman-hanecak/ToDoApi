@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoApi.Entities.DTO;
 
 namespace ToDoApi.Entities.Domain
 {
@@ -29,6 +30,17 @@ namespace ToDoApi.Entities.Domain
         //public int ItemListId { get; set; }
         //public virtual ItemList ItemList { get; set; }
 
-        //public ItemDto toDto() { }
+        public TaskItemDto ToDto()
+        {
+            return new TaskItemDto
+            {
+                PublicId = PublicId.Value,
+                Title = Title,
+                Description = Description,
+                CreatedDate = CreatedDate,
+                EndDate = EndDate,
+                Completed = Completed
+            };
+        }
     }
 }

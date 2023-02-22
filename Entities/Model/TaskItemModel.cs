@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoApi.Entities.Domain;
 
 namespace ToDoApi.Entities.Model
 {
@@ -19,6 +20,18 @@ namespace ToDoApi.Entities.Model
         public DateTime EndDate { get; set; }
 
         [Required]
-        public Boolean completed { get; set; }
+        public Boolean Completed { get; set; }
+
+        public TaskItem ToDomain()
+        {
+            return new TaskItem
+            {
+                Title = Title,
+                Description = Description,
+                CreatedDate = CreatedDate,
+                EndDate = EndDate,
+                Completed = Completed
+            };
+        }
     }
 }

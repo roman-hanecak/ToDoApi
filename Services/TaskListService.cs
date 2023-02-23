@@ -84,10 +84,27 @@ namespace ToDoApi.Services
         }
 
 
-        public Task<TaskListDto> GetByUserAsync(Guid userId, Guid taskListId, CancellationToken ct = default)
+        public async Task<List<TaskListDto>> GetByUserAsync(Guid userId, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
+            if (user == null)
+            {
+                throw new Exception($"User with Id {userId} wasnt found!");
+            }
+            //var query = db.Students.Include(s => s.Enrollments.Select(e => e.Course));
+            var taskList = await _context.TaskLists.AsNoTracking().Where(t => t.UserId == user.Id).ToListAsync();
+            // Include(x => x.Products)
+            //     .SingleOrDefaultAsync(x => x.PublicId == catalogId, ct);
+            if (taskList == null)
+            {
+                throw new Exception("TaskLists werent found!");
+            }
+            List<TaskListDto> taskListDtos = taskList.Select(x => x.ToDto()).ToList();
+            return taskListDtos;
+
+            //throw new NotImplementedException();
         }
+
 
         public async Task<TaskListDto> UpdateAsync(Guid taskListId, TaskListModel model, CancellationToken ct = default)
         {

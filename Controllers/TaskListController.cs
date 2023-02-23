@@ -101,24 +101,41 @@ namespace ToDoApi.Controllers
         }
 
 
-        [HttpPost("{task_list_id}/TaskItems")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
+        // [HttpPost("{task_list_id}/TaskItems")]
+        // [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [SwaggerOperation(
+        //     summary: "Create TaskItem in existing TaskList",
+        //     description: "Create TaskItem in the database and associate it with TaskList",
+        //     OperationId = "CreateTaskItemWithTaskListId",
+        //     Tags = new[] { "TaskItem API" })]
+        // public async Task<IActionResult> AddTaskToTaskListAsync(
+        //     [Required, FromRoute(Name = "task_list_id")] Guid? taskListId,
+        //     [Bind, FromBody] TaskItemModel model,
+        //     [FromServices] ITaskItemService taskItemService,
+        //     CancellationToken ct)
+        // {
+        //     TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId.Value, model, ct);
+        //     return CreatedAtRoute(
+        //         new { task_list_id = taskItemDto.PublicId },
+        //         taskItemDto);
+        // }
+
+        [HttpGet("{task_list_id}/TaskItems")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation(
-            summary: "Create TaskItem in existing TaskList",
-            description: "Create TaskItem in the database and associate it with TaskList",
-            OperationId = "CreateTaskItemWithTaskListId",
+            summary: "Get all tasks for tasklist",
+            description: "Get all tasks for tasklist",
+            OperationId = "GetTasksByTaskListId",
             Tags = new[] { "TaskItem API" })]
-        public async Task<IActionResult> AddTaskToTaskListAsync(
-            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId,
-            [Bind, FromBody] TaskItemModel model,
+        public async Task<IActionResult> GetAllTasksByTaskList(
+            [Required, FromRoute(Name = "task_list_id")] Guid taskListId,
             [FromServices] ITaskItemService taskItemService,
             CancellationToken ct)
         {
-            TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId.Value, model, ct);
-            return CreatedAtRoute(
-                new { task_list_id = taskItemDto.PublicId },
-                taskItemDto);
+            List<TaskItemDto> taskItemDtos = await taskItemService.GetTasksByTaskList(taskListId, ct);
+            return Ok(taskItemDtos);
         }
     }
 }

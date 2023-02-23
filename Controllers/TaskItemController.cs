@@ -61,7 +61,7 @@ namespace ToDoApi.Controllers
             description: "Create new TaskItem in the database",
             OperationId = "CreateTaskItem",
             Tags = new[] { "TaskItem API" })]
-        public async Task<IActionResult> CreateTaskItemAsync(Guid taskListId,[FromBody, Bind] TaskItemModel model, CancellationToken ct)
+        public async Task<IActionResult> CreateTaskItemAsync(Guid taskListId, [FromBody, Bind] TaskItemModel model, CancellationToken ct)
         {
             TaskItemDto taskItemDto = await _taskItemService.CreateAsync(taskListId, model, ct);
 

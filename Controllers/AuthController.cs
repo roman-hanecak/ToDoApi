@@ -10,6 +10,6 @@ namespace ToDoApi.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        
+
     }
 }

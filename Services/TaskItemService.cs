@@ -21,25 +21,6 @@ namespace ToDoApi.Services
             _context = context;
         }
 
-        // public async Task<TaskItemDto> CreateAsync(TaskItemModel model, CancellationToken ct = default)
-        // {
-
-        //     var taskItem = new TaskItem
-        //     {
-        //         PublicId = Guid.NewGuid(),
-        //         Title = model.Title,
-        //         Description = model.Description,
-        //         CreatedDate = DateTime.UtcNow,
-        //         EndDate = model.EndDate,
-        //         Completed = false
-        //     };
-        //     //System.Console.WriteLine(taskItem);
-        //     await _context.Tasks.AddAsync(taskItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return taskItem.ToDto();
-        // }
-
         public async Task<TaskItemDto> CreateAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
         {
             var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
@@ -58,12 +39,6 @@ namespace ToDoApi.Services
                 Completed = false,
                 TaskListId = taskList.Id
             };
-            //model.ToDomain();
-            // taskItem.PublicId = Guid.NewGuid();
-            // taskItem.CreatedDate = DateTime.UtcNow;
-            // taskItem.Completed = false;
-            // taskItem.Id = taskList.Id;
-            //taskItem.TaskListId = taskListId;
 
             await _context.Tasks.AddAsync(taskItem, ct);
             await _context.SaveChangesAsync(ct);
@@ -125,22 +100,23 @@ namespace ToDoApi.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<TaskItemDto> UpdateAtTaskListAsync(Guid taskListId, Guid taskId, TaskItemModel model, CancellationToken ct = default)
+        public async Task<List<TaskItemDto>> GetTasksByTaskList(Guid taskListId, CancellationToken ct = default)
         {
-            // var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
-
-            // if(taskList == null){
-            //     throw new Exception($"List with given Id {taskListId} wasnt found!");
-            // }
-
-            // var taskItem = await _context.TaskLists.AsNoTracking()
-            throw new NotImplementedException();
-
-        }
-
-        public Task<TaskItemDto> DeleteAtTaskListAsync(Guid taskListId, TaskItemModel model, CancellationToken ct = default)
-        {
-            throw new NotImplementedException();
+            var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
+            if (taskList == null)
+            {
+                throw new Exception($"TaskList with Id {taskListId} wasnt found!");
+            }
+            //var query = db.Students.Include(s => s.Enrollments.Select(e => e.Course));
+            var tasks = await _context.Tasks.AsNoTracking().Where(t => t.TaskListId == taskList.Id).ToListAsync();
+            // Include(x => x.Products)
+            //     .SingleOrDefaultAsync(x => x.PublicId == catalogId, ct);
+            if (taskList == null)
+            {
+                throw new Exception("Tasks werent found!");
+            }
+            List<TaskItemDto> taskItems = tasks.Select(x => x.ToDto()).ToList();
+            return taskItems;
         }
     }
 }

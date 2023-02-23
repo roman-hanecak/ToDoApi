@@ -11,7 +11,7 @@ namespace ToDoApi.Services.Interfaces
     {
         Task<List<TaskListDto>> GetAllAsync(CancellationToken ct = default);
 
-        Task<TaskListDto> GetByUserAsync(Guid userId, Guid taskListId, CancellationToken ct = default);
+        Task<List<TaskListDto>> GetByUserAsync(Guid userId, CancellationToken ct = default);
         Task<TaskListDto> GetAsync(Guid taskListId, CancellationToken ct = default);
 
         Task<TaskListDto> CreateAsync(Guid userId, TaskListModel model, CancellationToken ct = default);

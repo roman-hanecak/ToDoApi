@@ -11,7 +11,7 @@ using ToDoApi.Database;
 namespace ToDoApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230222201249_FK")]
+    [Migration("20230223075618_FK")]
     partial class FK
     {
         /// <inheritdoc />

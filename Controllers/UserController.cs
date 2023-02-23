@@ -115,5 +115,22 @@ namespace ToDoApi.Controllers
 
             return Ok(userDto);
         }
+
+        [HttpGet("{user_id}/TaskLists")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation(
+            summary: "Get all tasklists for user",
+            description: "Get all tasklists for user",
+            OperationId = "GetTaskListsByUserId",
+            Tags = new[] { "TaskList API" })]
+        public async Task<IActionResult> GetAllTaskListsByUser(
+            [Required, FromRoute(Name = "user_id")] Guid userId,
+            [FromServices] ITaskListService taskListService,
+            CancellationToken ct)
+        {
+            List<TaskListDto> taskListDtos = await taskListService.GetByUserAsync(userId, ct);
+            return Ok(taskListDtos);
+        }
     }
 }

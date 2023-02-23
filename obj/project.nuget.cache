@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FApUXWsfDjxHzLPjKc5oHaLPiRCLJ6nQfqd2IgP6ZMiJc23Ji+3hHBXf+n2ySr1zCgvBhaGvlJynmsSS97a/Xw==",
+  "dgSpecHash": "07deEk0gvrfmJHTE2R5b3fe/TYCyqRKQ5sgOfKGCy/tZaQli85gEx2bxt7mNR5R8+OjOPB/KQ426NTafp1bDkg==",
   "success": true,
   "projectFilePath": "C:\\Users\\roman\\Documents\\GitHub\\ToDoApi\\ToDoApi.csproj",
   "expectedPackageFiles": [
@@ -20,7 +20,7 @@
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.3\\microsoft.entityframeworkcore.design.7.0.3.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.3\\microsoft.entityframeworkcore.relational.7.0.3.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.3\\microsoft.entityframeworkcore.tools.7.0.3.nupkg.sha512",
-    "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.apidescription.server\\7.0.3\\microsoft.extensions.apidescription.server.7.0.3.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",

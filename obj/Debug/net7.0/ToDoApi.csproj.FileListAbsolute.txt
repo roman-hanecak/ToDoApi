@@ -132,3 +132,14 @@ C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\obj\Debug\net7.0\ToDoApi.genrunt
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\obj\Debug\net7.0\ref\ToDoApi.dll
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

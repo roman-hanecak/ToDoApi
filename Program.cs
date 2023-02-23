@@ -23,7 +23,32 @@ builder.Services.AddEntityFrameworkMySQL().AddDbContext<ApplicationContext>(opti
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var securitySchema = new OpenApiSecurityScheme()
+    {
+        Description = "JWT Auth Bearer Scheme",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        Reference = new OpenApiReference()
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+    var securityRequirement = new OpenApiSecurityRequirement()
+{
+    {
+        securitySchema,
+        new[] {"Bearer"}
+    }
+};
+    c.AddSecurityDefinition("Bearer", securitySchema);
+    c.AddSecurityRequirement(securityRequirement);
+});
+
 builder.Services.AddTransient<ITaskItemService, TaskItemService>();
 builder.Services.AddTransient<ITaskListService, TaskListService>();
 builder.Services.AddTransient<IUserService, UserService>();
@@ -42,6 +67,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -54,6 +80,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

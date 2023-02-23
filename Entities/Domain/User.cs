@@ -15,13 +15,13 @@ namespace ToDoApi.Entities.Domain
         public Guid? PublicId { get; set; }
         [StringLength(50)]
         public string FirstName { get; set; }
-        [StringLength(50)]
+        [ StringLength(50)]
         public string LastName { get; set; }
         [Required, StringLength(50)]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
+        //[Required]
         public byte[] PasswordSalt { get; set; } = new byte[0];
 
         public byte[] PasswordHash { get; set; } = new byte[0];

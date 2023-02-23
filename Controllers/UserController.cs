@@ -111,7 +111,7 @@ namespace ToDoApi.Controllers
             Tags = new[] { "User API" })]
         public async Task<IActionResult> LoginAsync([FromBody, Bind] LoginModel model, CancellationToken ct)
         {
-            UserDto userDto = await _userService.LoginUserAsync(model.email, model.password, ct);
+            UserDto userDto = await _userService.LoginUserAsync(model.Email, model.Password, ct);
 
             return Ok(userDto);
         }

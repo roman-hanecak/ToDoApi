@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,14 +32,14 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
-        Scheme = "bearer",
+        Scheme = "Bearer",
         Reference = new OpenApiReference()
         {
             Type = ReferenceType.SecurityScheme,
             Id = "Bearer"
         }
     };
-    var securityRequirement = new OpenApiSecurityRequirement()
+    var securityRequirement = new OpenApiSecurityRequirement
 {
     {
         securitySchema,
@@ -64,13 +63,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        // ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidIssuer = "localhost",
-        // ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidAudience = "localhost",
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

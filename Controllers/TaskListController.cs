@@ -12,7 +12,7 @@ using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TaskListController : ControllerBase
@@ -24,8 +24,8 @@ namespace ToDoApi.Controllers
             _taskListService = taskListService;
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet, Authorize]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskListDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation(

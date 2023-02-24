@@ -62,8 +62,9 @@ namespace ToDoApi.Services
                 new Claim(ClaimTypes.Name, user.Email)
             };
 
-            var tokenKey = _configuration["Token:Key"];
-            var issuer = _configuration["Token:Issuer"];
+            var tokenKey = _configuration["Jwt:Key"];
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -72,6 +73,7 @@ namespace ToDoApi.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = credentials,
+                Audience = audience,
                 Issuer = issuer
             };
 

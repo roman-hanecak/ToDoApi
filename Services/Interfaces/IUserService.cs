@@ -9,13 +9,13 @@ namespace ToDoApi.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default);
+        //Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default);
 
         Task<UserDto> GetUserAsync(Guid userId, CancellationToken ct = default);
 
-        Task<UserDto> CreateUserAsync(UserModel model, CancellationToken ct = default);
+        //Task<UserDto> CreateUserAsync(UserModel model, CancellationToken ct = default);
         Task<UserDto> UpdateUserAsync(Guid userId, UserModel model, CancellationToken ct = default);
         Task DeleteUserAsync(Guid userId, CancellationToken ct = default);
-        Task<UserDto> LoginUserAsync(string email, string password, CancellationToken ct = default);
+        //Task<UserDto> LoginUserAsync(string email, string password, CancellationToken ct = default);
     }
 }

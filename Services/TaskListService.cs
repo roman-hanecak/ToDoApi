@@ -22,15 +22,7 @@ namespace ToDoApi.Services
 
         public async Task<TaskListDto> CreateAsync(Guid userId, TaskListModel model, CancellationToken ct = default)
         {
-            //var taskList = model.ToDomain();
-            //taskList.PublicId = Guid.NewGuid();
-
-            //     var taskList = new TaskList
-            //     {
-            //         PublicId = Guid.NewGuid(),
-            //         Title = model.Title,
-            //         TaskItems = model.Tasks
-            // };
+            
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
@@ -63,15 +55,15 @@ namespace ToDoApi.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<TaskListDto>> GetAllAsync(CancellationToken ct = default)
-        {
-            var taskLists = await _context.TaskLists.AsNoTracking().ToListAsync(ct);
+        // public async Task<List<TaskListDto>> GetAllAsync(CancellationToken ct = default)
+        // {
+        //     var taskLists = await _context.TaskLists.AsNoTracking().ToListAsync(ct);
 
-            List<TaskListDto> taskListDtos = taskLists.Select(x => x.ToDto()).ToList();
+        //     List<TaskListDto> taskListDtos = taskLists.Select(x => x.ToDto()).ToList();
 
-            return taskListDtos;
-            //throw new NotImplementedException();
-        }
+        //     return taskListDtos;
+        //     //throw new NotImplementedException();
+        // }
 
         public async Task<TaskListDto> GetAsync(Guid taskListId, CancellationToken ct = default)
         {
@@ -91,10 +83,8 @@ namespace ToDoApi.Services
             {
                 throw new Exception($"User with Id {userId} wasnt found!");
             }
-            //var query = db.Students.Include(s => s.Enrollments.Select(e => e.Course));
+            
             var taskList = await _context.TaskLists.AsNoTracking().Where(t => t.UserId == user.Id).ToListAsync();
-            // Include(x => x.Products)
-            //     .SingleOrDefaultAsync(x => x.PublicId == catalogId, ct);
             if (taskList == null)
             {
                 throw new Exception("TaskLists werent found!");

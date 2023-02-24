@@ -21,22 +21,22 @@ namespace ToDoApi.Services
             _context = context;
         }
 
-        public async Task<UserDto> CreateUserAsync(UserModel model, CancellationToken ct = default)
-        {
-            var newUser = new User
-            {
-                PublicId = Guid.NewGuid(),
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                Password = model.Password,
-                Image = model.Image != null ? model.Image : "",
-            };
+        // public async Task<UserDto> CreateUserAsync(UserModel model, CancellationToken ct = default)
+        // {
+        //     var newUser = new User
+        //     {
+        //         PublicId = Guid.NewGuid(),
+        //         FirstName = model.FirstName,
+        //         LastName = model.LastName,
+        //         Email = model.Email,
+        //         Password = model.Password,
+        //         Image = model.Image != null ? model.Image : "",
+        //     };
 
-            await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
-            return newUser.ToDto();
-        }
+        //     await _context.Users.AddAsync(newUser);
+        //     await _context.SaveChangesAsync();
+        //     return newUser.ToDto();
+        // }
 
         public async Task DeleteUserAsync(Guid userId, CancellationToken ct = default)
         {
@@ -50,13 +50,13 @@ namespace ToDoApi.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default)
-        {
-            var users = await _context.Users.AsNoTracking().ToListAsync(ct);
-            List<UserDto> userDtos = users.Select(x => x.ToDto()).ToList();
+        // public async Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default)
+        // {
+        //     var users = await _context.Users.AsNoTracking().ToListAsync(ct);
+        //     List<UserDto> userDtos = users.Select(x => x.ToDto()).ToList();
 
-            return userDtos;
-        }
+        //     return userDtos;
+        // }
 
         public async Task<UserDto> GetUserAsync(Guid userId, CancellationToken ct = default)
         {
@@ -86,15 +86,15 @@ namespace ToDoApi.Services
             return user.ToDto();
         }
 
-        public async Task<UserDto> LoginUserAsync(string email, string password, CancellationToken ct)
-        {
-            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
-            if (user == null)
-            {
-                throw new Exception($"User with such credentials does not exist");
-            }
-            return user.ToDto();
+        // public async Task<UserDto> LoginUserAsync(string email, string password, CancellationToken ct)
+        // {
+        //     var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
+        //     if (user == null)
+        //     {
+        //         throw new Exception($"User with such credentials does not exist");
+        //     }
+        //     return user.ToDto();
 
-        }
+        // }
     }
 }

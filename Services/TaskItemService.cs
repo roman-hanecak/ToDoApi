@@ -60,15 +60,15 @@ namespace ToDoApi.Services
 
 
 
-        public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
-        {
-            var tasks = await _context.Tasks.AsNoTracking().ToListAsync(ct);
+        // public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
+        // {
+        //     var tasks = await _context.Tasks.AsNoTracking().ToListAsync(ct);
 
-            List<TaskItemDto> taskItemDtos = tasks.Select(x => x.ToDto()).ToList();
+        //     List<TaskItemDto> taskItemDtos = tasks.Select(x => x.ToDto()).ToList();
 
-            return taskItemDtos;
-            //throw new NotImplementedException();
-        }
+        //     return taskItemDtos;
+        //     //throw new NotImplementedException();
+        // }
 
         public async Task<TaskItemDto> GetAsync(Guid taskId, CancellationToken ct = default)
         {

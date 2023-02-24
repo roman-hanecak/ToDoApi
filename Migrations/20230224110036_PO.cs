@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ToDoApi.Migrations
 {
     /// <inheritdoc />
-    public partial class FK : Migration
+    public partial class PO : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,9 +26,7 @@ namespace ToDoApi.Migrations
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "longtext", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
-                    Image = table.Column<string>(type: "longtext", nullable: false)
+                    Image = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {

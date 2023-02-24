@@ -9,7 +9,7 @@ namespace ToDoApi.Services.Interfaces
 {
     public interface ITaskListService
     {
-        Task<List<TaskListDto>> GetAllAsync(CancellationToken ct = default);
+        //Task<List<TaskListDto>> GetAllAsync(CancellationToken ct = default);
 
         Task<List<TaskListDto>> GetByUserAsync(Guid userId, CancellationToken ct = default);
         Task<TaskListDto> GetAsync(Guid taskListId, CancellationToken ct = default);

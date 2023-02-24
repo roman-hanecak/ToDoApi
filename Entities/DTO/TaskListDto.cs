@@ -10,6 +10,5 @@ namespace ToDoApi.Entities.DTO
         public string Title { get; set; }
 
         public Guid PublicId { get; set; }
-        public List<TaskItemDto> TasksList { get; set; }
     }
 }

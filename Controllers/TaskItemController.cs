@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using ToDoApi.Entities.DTO;
@@ -11,6 +12,7 @@ using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TaskItemController : ControllerBase
@@ -22,20 +24,20 @@ namespace ToDoApi.Controllers
             _taskItemService = taskItemService;
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskItemDto>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            summary: "Get All existing TaskItems",
-            description: "Get all TaskItems from database",
-            OperationId = "CreateTaskItem",
-            Tags = new[] { "TaskItem API" })]
-        //public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
-        public async Task<IActionResult> GetAllTasksAsync(CancellationToken ct)
-        {
-            List<TaskItemDto> taskItemList = await _taskItemService.GetAllAsync(ct: ct);
-            return Ok(taskItemList);
-        }
+        // [HttpGet]
+        // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskItemDto>))]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [SwaggerOperation(
+        //     summary: "Get All existing TaskItems",
+        //     description: "Get all TaskItems from database",
+        //     OperationId = "CreateTaskItem",
+        //     Tags = new[] { "TaskItem API" })]
+        // //public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
+        // public async Task<IActionResult> GetAllTasksAsync(CancellationToken ct)
+        // {
+        //     List<TaskItemDto> taskItemList = await _taskItemService.GetAllAsync(ct: ct);
+        //     return Ok(taskItemList);
+        // }
 
         [HttpGet("{task_item_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskItemDto))]

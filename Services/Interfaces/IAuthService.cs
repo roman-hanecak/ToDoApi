@@ -10,7 +10,7 @@ namespace ToDoApi.Services.Interfaces
     public interface IAuthService
     {
         Task<int> Register(User user, string password);
-        Task<string> Login(string userName, string password);
-        Task<bool> UserExists(string username);
+        Task<Object> Login(string userName, string password);
+        Task<bool> UserExists(string userName);
     }
 }

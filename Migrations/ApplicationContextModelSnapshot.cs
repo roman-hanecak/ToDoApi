@@ -99,7 +99,6 @@ namespace ToDoApi.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
@@ -110,14 +109,6 @@ namespace ToDoApi.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("longblob");
 
                     b.Property<Guid?>("PublicId")
                         .IsRequired()

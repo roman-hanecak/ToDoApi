@@ -12,7 +12,7 @@ using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TaskListController : ControllerBase
@@ -24,20 +24,19 @@ namespace ToDoApi.Controllers
             _taskListService = taskListService;
         }
 
-        [HttpGet, Authorize]
-        //[Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskListDto>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            summary: "Get All existing TaskLists",
-            description: "Get all TaskLists from database",
-            OperationId = "GetTaskLists",
-            Tags = new[] { "TaskList API" })]
-        public async Task<IActionResult> GetAllTasksAsync(CancellationToken ct)
-        {
-            List<TaskListDto> taskListDtos = await _taskListService.GetAllAsync(ct: ct);
-            return Ok(taskListDtos);
-        }
+        // [HttpGet]
+        // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskListDto>))]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [SwaggerOperation(
+        //     summary: "Get All existing TaskLists",
+        //     description: "Get all TaskLists from database",
+        //     OperationId = "GetTaskLists",
+        //     Tags = new[] { "TaskList API" })]
+        // public async Task<IActionResult> GetAllTasksAsync(CancellationToken ct)
+        // {
+        //     List<TaskListDto> taskListDtos = await _taskListService.GetAllAsync(ct: ct);
+        //     return Ok(taskListDtos);
+        // }
 
         [HttpGet("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]

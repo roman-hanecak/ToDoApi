@@ -26,7 +26,7 @@ namespace ToDoApi.Services
             _context = context;
         }
 
-        public async Task<string> Login(string email, string password)
+        public async Task<Object> Login(string email, string password)
         {
             //throw new NotImplementedException();
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
@@ -37,8 +37,9 @@ namespace ToDoApi.Services
             }
             //System.Console.WriteLine(user);
             var token = GenerateToken(user);
-            System.Console.WriteLine(token);
-            return token;
+            var asd = new { Token = token, User = user };
+            return asd;
+
         }
 
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApi.Entities.Domain;
 using ToDoApi.Entities.DTO;
+using ToDoApi.Entities.Model;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
@@ -24,7 +25,7 @@ namespace ToDoApi.Controllers
         [HttpPost("register")]
         [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync(
-        [FromForm, Bind] LoginDto request,
+        [FromBody, Bind] UserModel request,
         CancellationToken ct)
         {
             try
@@ -34,13 +35,13 @@ namespace ToDoApi.Controllers
                     PublicId = Guid.NewGuid(),
                     Email = request.Email,
                     Password = request.Password,
-                    FirstName = "null",
-                    LastName = "null",
-                    Image = "null"
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Image = request.Image
                 };
                 var userId = await _authService.Register(user, request.Email);
 
-                return Ok(userId);
+                return Ok();
             }
             catch (Exception e)
             {
@@ -56,13 +57,9 @@ namespace ToDoApi.Controllers
         {
             try
             {
-                User user = new User
-                {
-                    Email = request.Email,
-                    Password = request.Password
-                };
-                var userId = await _authService.Login(request.Email, request.Password);
-                return StatusCode(StatusCodes.Status200OK, userId);
+
+                var tuple = await _authService.Login(request.Email, request.Password);
+                return StatusCode(StatusCodes.Status200OK, tuple);
             }
             catch
             {

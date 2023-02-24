@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using ToDoApi.Entities.DTO;
@@ -11,6 +12,7 @@ using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -22,23 +24,24 @@ namespace ToDoApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserDto))]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [SwaggerOperation(
-            summary: "Create new user",
-            description: "Create new user in the database",
-            OperationId = "CreateUser",
-            Tags = new[] { "User API" })]
-        public async Task<IActionResult> CreateUserAsync([FromBody, Bind] UserModel model, CancellationToken ct)
-        {
-            UserDto userDto = await _userService.CreateUserAsync(model, ct);
+        // [HttpPost]
+        // [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserDto))]
+        // [ProducesResponseType(StatusCodes.Status409Conflict)]
+        // [SwaggerOperation(
+        //     summary: "Create new user",
+        //     description: "Create new user in the database",
+        //     OperationId = "CreateUser",
+        //     Tags = new[] { "User API" })]
+        // public async Task<IActionResult> CreateUserAsync([FromBody, Bind] UserModel model, CancellationToken ct)
+        // {
+        //     UserDto userDto = await _userService.CreateUserAsync(model, ct);
 
-            return CreatedAtRoute(
-                new { user_id = userDto.PublicId },
-                userDto);
-        }
+        //     return CreatedAtRoute(
+        //         new { user_id = userDto.PublicId },
+        //         userDto);
+        // }
 
+        
         [HttpDelete("{user_id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,19 +56,19 @@ namespace ToDoApi.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<UserDto>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            summary: "Get all users",
-            description: "Get all users from database",
-            OperationId = "GetAllUsers",
-            Tags = new[] { "User API" })]
-        public async Task<IActionResult> GetAllUsersAsync(CancellationToken ct)
-        {
-            List<UserDto> userList = await _userService.GetAllUsersAsync();
-            return Ok(userList);
-        }
+        // [HttpGet]
+        // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<UserDto>))]
+        // [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [SwaggerOperation(
+        //     summary: "Get all users",
+        //     description: "Get all users from database",
+        //     OperationId = "GetAllUsers",
+        //     Tags = new[] { "User API" })]
+        // public async Task<IActionResult> GetAllUsersAsync(CancellationToken ct)
+        // {
+        //     List<UserDto> userList = await _userService.GetAllUsersAsync();
+        //     return Ok(userList);
+        // }
 
         [HttpGet("{user_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
@@ -101,20 +104,20 @@ namespace ToDoApi.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [SwaggerOperation(
-            summary: "Create new user",
-            description: "Create new user in the database",
-            OperationId = "CreateUser",
-            Tags = new[] { "User API" })]
-        public async Task<IActionResult> LoginAsync([FromBody, Bind] LoginModel model, CancellationToken ct)
-        {
-            UserDto userDto = await _userService.LoginUserAsync(model.Email, model.Password, ct);
+        // [HttpPost("login")]
+        // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+        // [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        // [SwaggerOperation(
+        //     summary: "Create new user",
+        //     description: "Create new user in the database",
+        //     OperationId = "CreateUser",
+        //     Tags = new[] { "User API" })]
+        // public async Task<IActionResult> LoginAsync([FromBody, Bind] LoginModel model, CancellationToken ct)
+        // {
+        //     UserDto userDto = await _userService.LoginUserAsync(model.Email, model.Password, ct);
 
-            return Ok(userDto);
-        }
+        //     return Ok(userDto);
+        // }
 
         [HttpGet("{user_id}/TaskLists")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]

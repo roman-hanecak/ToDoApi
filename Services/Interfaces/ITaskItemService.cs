@@ -10,7 +10,7 @@ namespace ToDoApi.Services.Interfaces
     public interface ITaskItemService
     {
         #region basic task
-        Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default);
+        //Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default);
         Task<TaskItemDto> GetAsync(Guid taskId, CancellationToken ct = default);
 
         Task<List<TaskItemDto>> GetTasksByTaskList(Guid taskListId, CancellationToken ct = default);

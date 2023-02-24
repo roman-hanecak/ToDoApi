@@ -8,7 +8,7 @@ using ToDoApi.Services.Interfaces;
 namespace ToDoApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -45,7 +45,7 @@ namespace ToDoApi.Controllers
             }
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(
             [FromBody, Bind] LoginDto request,

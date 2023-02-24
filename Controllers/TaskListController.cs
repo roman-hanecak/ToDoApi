@@ -10,7 +10,7 @@ namespace ToDoApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/lists")]
     public class TaskListController : ControllerBase
     {
         private readonly ITaskListService _taskListService;
@@ -20,7 +20,7 @@ namespace ToDoApi.Controllers
             _taskListService = taskListService;
         }
 
-        
+
 
         [HttpGet("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
@@ -31,7 +31,7 @@ namespace ToDoApi.Controllers
             OperationId = "GetTaskIList",
             Tags = new[] { "TaskList API" })]
         public async Task<IActionResult> GetTaskListAsync(
-            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId, 
+            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId,
             CancellationToken ct)
         {
             TaskListDto taskListDto = await _taskListService.GetAsync(taskListId.Value, ct);
@@ -47,8 +47,8 @@ namespace ToDoApi.Controllers
             OperationId = "CreateTaskList",
             Tags = new[] { "TaskList API" })]
         public async Task<IActionResult> CreateTaskListAsync(
-            Guid userId, 
-            [FromBody, Bind] TaskListModel model, 
+            Guid userId,
+            [FromBody, Bind] TaskListModel model,
             CancellationToken ct)
         {
             TaskListDto taskListDto = await _taskListService.CreateAsync(userId, model, ct);
@@ -67,7 +67,7 @@ namespace ToDoApi.Controllers
             OperationId = "DeleteTaskList",
             Tags = new[] { "TaskList API" })]
         public async Task<IActionResult> DeleteTaskListAsync(
-            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId, 
+            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId,
             CancellationToken ct)
         {
             await _taskListService.DeleteAsync(taskListId.Value, ct);

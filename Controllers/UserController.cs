@@ -10,7 +10,7 @@ namespace ToDoApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -73,7 +73,7 @@ namespace ToDoApi.Controllers
             return Ok(userDto);
         }
 
-        [HttpGet("{user_id}/TaskLists")]
+        [HttpGet("{user_id}/lists")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation(

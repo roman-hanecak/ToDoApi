@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using ToDoApi.Entities.DTO;
@@ -11,6 +12,7 @@ using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TaskListController : ControllerBase
@@ -23,6 +25,7 @@ namespace ToDoApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskListDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerOperation(

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApi.Entities.Domain;
 using ToDoApi.Entities.DTO;
@@ -21,6 +22,7 @@ namespace ToDoApi.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync(
         [FromForm, Bind] LoginDto request,
         CancellationToken ct)
@@ -47,6 +49,7 @@ namespace ToDoApi.Controllers
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(
             [FromBody, Bind] LoginDto request,
             CancellationToken ct)
@@ -59,7 +62,7 @@ namespace ToDoApi.Controllers
                     Password = request.Password
                 };
                 var userId = await _authService.Login(request.Email, request.Password);
-                return StatusCode(StatusCodes.Status200OK, user);
+                return StatusCode(StatusCodes.Status200OK, userId);
             }
             catch
             {

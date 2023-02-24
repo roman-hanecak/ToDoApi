@@ -154,3 +154,5 @@ C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel
 C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.dll
+C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.Extensions.Logging.dll

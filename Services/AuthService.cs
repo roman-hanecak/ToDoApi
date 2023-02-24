@@ -32,7 +32,7 @@ namespace ToDoApi.Services
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
             if (user == null)
             {
-            throw new Exception($"User with email {user.Email} doesnt exists! Register first.");
+                throw new Exception($"User with email {user.Email} doesnt exists! Register first.");
 
             }
             //System.Console.WriteLine(user);

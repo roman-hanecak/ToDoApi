@@ -21,10 +21,6 @@ namespace ToDoApi.Entities.Domain
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        //[Required]
-        //public byte[] PasswordSalt { get; set; } = new byte[0];
-
-        //public byte[] PasswordHash { get; set; } = new byte[0];
 
         public string? Image { get; set; }
 

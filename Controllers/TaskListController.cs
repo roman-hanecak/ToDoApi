@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,19 +20,7 @@ namespace ToDoApi.Controllers
             _taskListService = taskListService;
         }
 
-        // [HttpGet]
-        // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TaskListDto>))]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [SwaggerOperation(
-        //     summary: "Get All existing TaskLists",
-        //     description: "Get all TaskLists from database",
-        //     OperationId = "GetTaskLists",
-        //     Tags = new[] { "TaskList API" })]
-        // public async Task<IActionResult> GetAllTasksAsync(CancellationToken ct)
-        // {
-        //     List<TaskListDto> taskListDtos = await _taskListService.GetAllAsync(ct: ct);
-        //     return Ok(taskListDtos);
-        // }
+        
 
         [HttpGet("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
@@ -47,7 +31,8 @@ namespace ToDoApi.Controllers
             OperationId = "GetTaskIList",
             Tags = new[] { "TaskList API" })]
         public async Task<IActionResult> GetTaskListAsync(
-            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId, CancellationToken ct)
+            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId, 
+            CancellationToken ct)
         {
             TaskListDto taskListDto = await _taskListService.GetAsync(taskListId.Value, ct);
             return Ok(taskListDto);
@@ -61,7 +46,10 @@ namespace ToDoApi.Controllers
             description: "Create new TaskList in the database",
             OperationId = "CreateTaskList",
             Tags = new[] { "TaskList API" })]
-        public async Task<IActionResult> CreateTaskListAsync(Guid userId, [FromBody, Bind] TaskListModel model, CancellationToken ct)
+        public async Task<IActionResult> CreateTaskListAsync(
+            Guid userId, 
+            [FromBody, Bind] TaskListModel model, 
+            CancellationToken ct)
         {
             TaskListDto taskListDto = await _taskListService.CreateAsync(userId, model, ct);
 
@@ -78,7 +66,9 @@ namespace ToDoApi.Controllers
             description: "Delete TaskList from the database",
             OperationId = "DeleteTaskList",
             Tags = new[] { "TaskList API" })]
-        public async Task<IActionResult> DeleteTaskListAsync([Required, FromRoute(Name = "task_list_id")] Guid? taskListId, CancellationToken ct)
+        public async Task<IActionResult> DeleteTaskListAsync(
+            [Required, FromRoute(Name = "task_list_id")] Guid? taskListId, 
+            CancellationToken ct)
         {
             await _taskListService.DeleteAsync(taskListId.Value, ct);
             return NoContent();
@@ -102,26 +92,6 @@ namespace ToDoApi.Controllers
             return Ok(taskListDto);
         }
 
-
-        // [HttpPost("{task_list_id}/TaskItems")]
-        // [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [SwaggerOperation(
-        //     summary: "Create TaskItem in existing TaskList",
-        //     description: "Create TaskItem in the database and associate it with TaskList",
-        //     OperationId = "CreateTaskItemWithTaskListId",
-        //     Tags = new[] { "TaskItem API" })]
-        // public async Task<IActionResult> AddTaskToTaskListAsync(
-        //     [Required, FromRoute(Name = "task_list_id")] Guid? taskListId,
-        //     [Bind, FromBody] TaskItemModel model,
-        //     [FromServices] ITaskItemService taskItemService,
-        //     CancellationToken ct)
-        // {
-        //     TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId.Value, model, ct);
-        //     return CreatedAtRoute(
-        //         new { task_list_id = taskItemDto.PublicId },
-        //         taskItemDto);
-        // }
 
         [HttpGet("{task_list_id}/TaskItems")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]

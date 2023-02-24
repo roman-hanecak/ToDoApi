@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
@@ -59,17 +55,6 @@ namespace ToDoApi.Services
         }
 
 
-
-        // public async Task<List<TaskItemDto>> GetAllAsync(CancellationToken ct = default)
-        // {
-        //     var tasks = await _context.Tasks.AsNoTracking().ToListAsync(ct);
-
-        //     List<TaskItemDto> taskItemDtos = tasks.Select(x => x.ToDto()).ToList();
-
-        //     return taskItemDtos;
-        //     //throw new NotImplementedException();
-        // }
-
         public async Task<TaskItemDto> GetAsync(Guid taskId, CancellationToken ct = default)
         {
             var task = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskId);
@@ -78,7 +63,6 @@ namespace ToDoApi.Services
                 throw new Exception($"Task with {taskId} wasnt found");
             }
             return task.ToDto();
-            //throw new NotImplementedException();
         }
 
         public async Task<TaskItemDto> UpdateAsync(Guid taskId, TaskItemModel model, CancellationToken ct = default)
@@ -97,7 +81,6 @@ namespace ToDoApi.Services
             await _context.SaveChangesAsync(ct);
 
             return taskItem.ToDto();
-            //throw new NotImplementedException();
         }
 
         public async Task<List<TaskItemDto>> GetTasksByTaskList(Guid taskListId, CancellationToken ct = default)
@@ -107,14 +90,13 @@ namespace ToDoApi.Services
             {
                 throw new Exception($"TaskList with Id {taskListId} wasnt found!");
             }
-            //var query = db.Students.Include(s => s.Enrollments.Select(e => e.Course));
+
             var tasks = await _context.Tasks.AsNoTracking().Where(t => t.TaskListId == taskList.Id).ToListAsync();
-            // Include(x => x.Products)
-            //     .SingleOrDefaultAsync(x => x.PublicId == catalogId, ct);
             if (taskList == null)
             {
                 throw new Exception("Tasks werent found!");
             }
+
             List<TaskItemDto> taskItems = tasks.Select(x => x.ToDto()).ToList();
             return taskItems;
         }

@@ -28,7 +28,6 @@ namespace ToDoApi.Entities.Domain
             {
                 Title = Title,
                 PublicId = PublicId
-                //TasksList = TaskItems?.Select(x => x.ToDto()).ToList()
             };
         }
     }

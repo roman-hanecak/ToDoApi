@@ -1,22 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
-using ToDoApi.Entities.Model;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Services
 {
     public class AuthService : IAuthService
     {
-
         private readonly ApplicationContext _context;
         private readonly IConfiguration _configuration;
 
@@ -28,14 +22,15 @@ namespace ToDoApi.Services
 
         public async Task<Object> Login(string email, string password)
         {
-            //throw new NotImplementedException();
-            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
+            var user = await _context.Users
+            .AsNoTracking()
+            .SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
             if (user == null)
             {
                 throw new Exception($"User with email {user.Email} doesnt exists! Register first.");
 
             }
-            //System.Console.WriteLine(user);
+
             var token = GenerateToken(user);
             var asd = new { Token = token, User = user };
             return asd;
@@ -92,7 +87,6 @@ namespace ToDoApi.Services
             {
                 return false;
             }
-
             return true;
         }
     }

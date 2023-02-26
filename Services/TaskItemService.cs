@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.EntityFrameworkCore;
 using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
@@ -30,7 +31,7 @@ namespace ToDoApi.Services
                 PublicId = Guid.NewGuid(),
                 Title = model.Title,
                 Description = model.Description,
-                CreatedDate = DateTime.UtcNow,
+                CreatedDate = model.CreatedDate,
                 EndDate = model.EndDate,
                 Completed = false,
                 TaskListId = taskList.Id

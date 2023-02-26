@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using ToDoApi.Entities.Domain;
 
@@ -15,9 +16,9 @@ namespace ToDoApi.Entities.Model
         [StringLength(50)]
         public string Description { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public string CreatedDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         [Required]
         public Boolean Completed { get; set; }

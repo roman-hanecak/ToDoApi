@@ -37,7 +37,7 @@ namespace ToDoApi.Controllers
             return Ok(taskItemDto);
         }
 
-        [HttpPost]
+        [HttpPost("{list_id}")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [SwaggerOperation(
@@ -46,7 +46,7 @@ namespace ToDoApi.Controllers
             OperationId = "CreateTaskItem",
             Tags = new[] { "TaskItem API" })]
         public async Task<IActionResult> CreateTaskItemAsync(
-            Guid taskListId,
+            [Required, FromRoute(Name = "list_id")]Guid taskListId,
             [FromBody, Bind] TaskItemModel model,
             CancellationToken ct)
         {

@@ -1,10 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
+using ToDoApi.Exceptions;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Services
@@ -13,6 +15,7 @@ namespace ToDoApi.Services
     {
         private readonly ApplicationContext _context;
         private readonly IConfiguration _configuration;
+
 
         public AuthService(IConfiguration configuration, ApplicationContext context)
         {
@@ -27,9 +30,13 @@ namespace ToDoApi.Services
             .SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
             if (user == null)
             {
-                throw new Exception($"User with email {user.Email} doesnt exists! Register first.");
+                throw new NotFoundException($"User with email {user.Email} doesnt exists! Register first.");
 
             }
+            // if (VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            // {
+            //     throw new NotValidException("Invalid password!");
+            // }
 
             var token = GenerateToken(user);
             var asd = new { Token = token, User = user };
@@ -42,8 +49,19 @@ namespace ToDoApi.Services
         {
             if (await this.UserExists(user.Email))
             {
-                throw new Exception($"user with mail {user.Email} exists");
+                throw new ConflictException($"user with mail {user.Email} exists");
             }
+
+            var isMailValid = MailAddress.TryCreate(user.Email, out MailAddress? result);
+
+            if (!isMailValid)
+            {
+                throw new NotValidException($"Email address {user.Email} is not valid!");
+            }
+
+            // this.CreatePasswordHash(Password, out byte[] passwordHash, out byte[] passwordSalt);
+            // user.PasswordHash = passwordHash;
+            // user.PasswordSalt = passwordSalt;
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();

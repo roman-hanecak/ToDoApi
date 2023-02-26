@@ -48,7 +48,7 @@ namespace ToDoApi.Controllers
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(
-            [FromBody, Bind] LoginDto request,
+            [FromBody, Bind] LoginModel request,
             CancellationToken ct)
         {
             try

@@ -11,8 +11,8 @@ using ToDoApi.Database;
 namespace ToDoApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230224110036_PO")]
-    partial class PO
+    [Migration("20230225182548_Hashes")]
+    partial class Hashes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,6 @@ namespace ToDoApi.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
@@ -112,6 +111,14 @@ namespace ToDoApi.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("longblob");
 
                     b.Property<Guid?>("PublicId")
                         .IsRequired()

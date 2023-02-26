@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ToDoApi.Database;
 using ToDoApi.Entities.DTO;
 using ToDoApi.Entities.Model;
+using ToDoApi.Exceptions;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Services
@@ -22,7 +23,7 @@ namespace ToDoApi.Services
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
-                throw new Exception($"User witdh Id {userId} doesnt exist!");
+                throw new NotFoundException($"User witdh Id {userId} doesnt exist!");
             }
 
             _context.Users.Remove(user);
@@ -34,7 +35,7 @@ namespace ToDoApi.Services
             var user = await _context.Users.SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
-                throw new Exception($"User with Id {userId} does not exist");
+                throw new NotFoundException($"User with Id {userId} does not exist");
             }
             return user.ToDto();
         }
@@ -44,7 +45,8 @@ namespace ToDoApi.Services
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
-                throw new Exception($"User with Id {userId} does not exist");
+                throw new NotFoundException($"User with Id {userId} does not exist");
+                
             }
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;

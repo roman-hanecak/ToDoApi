@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ToDoApi.Migrations
 {
     /// <inheritdoc />
-    public partial class PO : Migration
+    public partial class Hashes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,8 @@ namespace ToDoApi.Migrations
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "longtext", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
                     Image = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
@@ -64,7 +66,7 @@ namespace ToDoApi.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     PublicId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Title = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Completed = table.Column<bool>(type: "tinyint(1)", nullable: false),

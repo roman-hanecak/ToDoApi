@@ -8,7 +8,7 @@ namespace ToDoApi.Entities.Model
 {
     public class TaskListModel
     {
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public TaskList ToDomain()
         {

@@ -3,6 +3,7 @@ using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
 using ToDoApi.Entities.DTO;
 using ToDoApi.Entities.Model;
+using ToDoApi.Exceptions;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Services
@@ -22,7 +23,7 @@ namespace ToDoApi.Services
             var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
             if (taskList == null)
             {
-                throw new Exception($"TaskList with Id: {taskListId} doesnt exists!");
+                throw new NotFoundException($"TaskList with Id: {taskListId} doesnt exists!");
             }
 
             var taskItem = new TaskItem
@@ -46,7 +47,7 @@ namespace ToDoApi.Services
             var taskItem = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskId);
             if (taskItem == null)
             {
-                throw new Exception($"Task with Id {taskId} doesnt exists!");
+                throw new NotFoundException($"Task with Id {taskId} doesnt exists!");
             }
 
             _context.Tasks.Remove(taskItem);
@@ -60,7 +61,7 @@ namespace ToDoApi.Services
             var task = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskId);
             if (task == null)
             {
-                throw new Exception($"Task with {taskId} wasnt found");
+                throw new NotFoundException($"Task with {taskId} wasnt found");
             }
             return task.ToDto();
         }
@@ -70,7 +71,7 @@ namespace ToDoApi.Services
             var taskItem = await _context.Tasks.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskId);
             if (taskItem == null)
             {
-                throw new Exception($"Task with Id {taskId} doesnt exists!");
+                throw new NotFoundException($"Task with Id {taskId} doesnt exists!");
             }
             taskItem.Title = model.Title;
             taskItem.Description = model.Description;
@@ -88,13 +89,13 @@ namespace ToDoApi.Services
             var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
             if (taskList == null)
             {
-                throw new Exception($"TaskList with Id {taskListId} wasnt found!");
+                throw new NotFoundException($"TaskList with Id {taskListId} wasnt found!");
             }
 
             var tasks = await _context.Tasks.AsNoTracking().Where(t => t.TaskListId == taskList.Id).ToListAsync();
             if (taskList == null)
             {
-                throw new Exception("Tasks werent found!");
+                throw new NotFoundException("Tasks werent found!");
             }
 
             List<TaskItemDto> taskItems = tasks.Select(x => x.ToDto()).ToList();

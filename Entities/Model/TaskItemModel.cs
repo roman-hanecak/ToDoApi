@@ -10,10 +10,10 @@ namespace ToDoApi.Entities.Model
     public class TaskItemModel
     {
         [Required, StringLength(50)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [StringLength(50)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

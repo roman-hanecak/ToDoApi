@@ -16,9 +16,9 @@ namespace ToDoApi.Entities.Domain
         public Guid? PublicId { get; set; }
 
         [Required, StringLength(50)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [StringLength(100)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -29,13 +29,13 @@ namespace ToDoApi.Entities.Domain
         //foreign key
         [Required]
         public int TaskListId { get; set; }
-        public virtual TaskList TaskList { get; set; }
+        public virtual TaskList? TaskList { get; set; }
 
         public TaskItemDto ToDto()
         {
             return new TaskItemDto
             {
-                PublicId = PublicId.Value,
+                PublicId = PublicId,
                 Title = Title,
                 Description = Description,
                 CreatedDate = CreatedDate,

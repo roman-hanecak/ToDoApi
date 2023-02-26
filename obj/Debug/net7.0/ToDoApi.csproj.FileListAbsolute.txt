@@ -156,3 +156,15 @@ C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.IdentityModel
 C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.dll
 C:\Users\roman.hanecak\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.Extensions.Logging.dll
+C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.dll
+C:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Serilog.Extensions.Logging.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\NUnit3.TestAdapter.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\NUnit3.TestAdapter.pdb
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\nunit.engine.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\nunit.engine.api.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\nunit.engine.core.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\testcentric.engine.metadata.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Castle.Core.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\NSubstitute.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\nunit.framework.dll
+c:\Users\roman\Documents\GitHub\ToDoApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.InMemory.dll

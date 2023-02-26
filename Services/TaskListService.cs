@@ -3,6 +3,7 @@ using ToDoApi.Database;
 using ToDoApi.Entities.Domain;
 using ToDoApi.Entities.DTO;
 using ToDoApi.Entities.Model;
+using ToDoApi.Exceptions;
 using ToDoApi.Services.Interfaces;
 
 namespace ToDoApi.Services
@@ -22,7 +23,7 @@ namespace ToDoApi.Services
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
-                throw new Exception($"User with Id {userId} doesnt exists!");
+                throw new NotFoundException($"User with Id {userId} doesnt exists!");
             }
 
             var taskList = new TaskList
@@ -43,7 +44,7 @@ namespace ToDoApi.Services
 
             if (taskList == null)
             {
-                throw new Exception($"Tasklist with Id {taskListId} doesnt exists!");
+                throw new NotFoundException($"Tasklist with Id {taskListId} doesnt exists!");
             }
 
             _context.TaskLists.Remove(taskList);
@@ -56,7 +57,7 @@ namespace ToDoApi.Services
             var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
             if (taskList == null)
             {
-                throw new Exception($"Task list with id {taskListId} doesnt exists!");
+                throw new NotFoundException($"Task list with id {taskListId} doesnt exists!");
             }
             return taskList.ToDto();
         }
@@ -67,13 +68,13 @@ namespace ToDoApi.Services
             var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == userId);
             if (user == null)
             {
-                throw new Exception($"User with Id {userId} wasnt found!");
+                throw new NotFoundException($"User with Id {userId} wasnt found!");
             }
 
             var taskList = await _context.TaskLists.AsNoTracking().Where(t => t.UserId == user.Id).ToListAsync();
             if (taskList == null)
             {
-                throw new Exception("TaskLists werent found!");
+                throw new NotFoundException("TaskLists werent found!");
             }
 
             List<TaskListDto> taskListDtos = taskList.Select(x => x.ToDto()).ToList();
@@ -87,7 +88,7 @@ namespace ToDoApi.Services
             var taskList = await _context.TaskLists.AsNoTracking().SingleOrDefaultAsync(x => x.PublicId == taskListId);
             if (taskList == null)
             {
-                throw new Exception($"Task list with id {taskListId} doesnt exists!");
+                throw new NotFoundException($"Task list with id {taskListId} doesnt exists!");
             }
 
             _context.TaskLists.Update(taskList);

@@ -11,7 +11,7 @@ using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.WebHost.UseUrls("http://localhost:5193/");
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "CorsPolicy",

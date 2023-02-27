@@ -2,22 +2,21 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.Domain;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
-using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 
-namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
+namespace Visma.Bootcamp.ToDoApi.Tests.Repository.Interfaces
 {
-    public class AuthService : IAuthService
+    public class AuthRepository : IAuthRepository
     {
         private readonly ApplicationContext _context;
         private readonly IConfiguration _configuration;
 
-        public AuthService(IConfiguration configuration, ApplicationContext context)
+        public AuthRepository(IConfiguration configuration, ApplicationContext context)
         {
             _configuration = configuration;
             _context = context;
@@ -32,10 +31,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
             {
                 throw new NotFoundException($"User with email {user.Email} doesnt exists! Register first.");
             }
-            // if (VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-            // {
-            //     throw new NotValidException("Invalid password!");
-            // }
 
             var token = GenerateToken(user);
             var asd = new { Token = token, User = user };
@@ -57,10 +52,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
             {
                 throw new NotValidException($"Email address {user.Email} is not valid!");
             }
-
-            // this.CreatePasswordHash(Password, out byte[] passwordHash, out byte[] passwordSalt);
-            // user.PasswordHash = passwordHash;
-            // user.PasswordSalt = passwordSalt;
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -84,7 +75,7 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(1),
+                Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = credentials,
                 Audience = audience,
                 Issuer = issuer

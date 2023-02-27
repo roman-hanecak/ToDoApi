@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using NSubstitute;
 using NUnit.Framework;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.Domain;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
+using Visma.Bootcamp.ToDoApi.Tests.Repository;
+using Visma.Bootcamp.ToDoApi.Tests.Repository.Interfaces;
 
 namespace Visma.Bootcamp.ToDoApi.Tests.Services
 {
@@ -14,10 +18,17 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
     public class AuthServiceTests
     {
         private IAuthService _authService;
+        private IAuthRepository _authRepository;
+        private ApplicationContext _context;
+        private IConfiguration _config;
+
+
         [SetUp]
         public void Setup()
         {
             _authService = Substitute.For<IAuthService>();
+            _context = Substitute.For<ApplicationContext>();
+            _authRepository = new AuthRepository(_config, _context);
         }
 
         [Test]
@@ -41,7 +52,7 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
                 }
             };
 
-            _authService.Login(email, password).Returns(result);
+            _authRepository.Login(email, password).Returns(result);
             Assert.That(await _authService.Login(email, password), Is.EqualTo(result));
         }
 
@@ -54,7 +65,7 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
             //var exception = new NotFoundException($"User with email {email} doesnt exists! Register first.");
             //_authService.Login(email, password).Returns(exception);
             //Assert.That(await _authService.Login(email, password), Is.EqualTo(email));
-             Assert.ThrowsAsync<NotFoundException>(async () => await _authService.Login(email, password));
+            Assert.ThrowsAsync<NotFoundException>(async () => await _authRepository.Login(email, password));
             //StringAssert.Contains($"User with email {email} doesnt exists! Register first.", ex.Message.ToString());
         }
     }

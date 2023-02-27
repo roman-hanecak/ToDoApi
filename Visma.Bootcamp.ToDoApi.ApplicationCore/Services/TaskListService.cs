@@ -95,6 +95,8 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
                 throw new NotFoundException($"Task list with id {taskListId} doesnt exists!");
             }
 
+            taskList.Title = model.Title;
+
             _context.TaskLists.Update(taskList);
             await _context.SaveChangesAsync(ct);
 

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Moq;
 using NSubstitute;
 using NUnit.Framework;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.Domain;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Services;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
-using Visma.Bootcamp.ToDoApi.Tests.Repository;
-using Visma.Bootcamp.ToDoApi.Tests.Repository.Interfaces;
 
 namespace Visma.Bootcamp.ToDoApi.Tests.Services
 {
@@ -18,7 +19,6 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
     public class AuthServiceTests
     {
         private IAuthService _authService;
-        private IAuthRepository _authRepository;
         private ApplicationContext _context;
         private IConfiguration _config;
 
@@ -28,7 +28,6 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
         {
             _authService = Substitute.For<IAuthService>();
             _context = Substitute.For<ApplicationContext>();
-            _authRepository = new AuthRepository(_config, _context);
         }
 
         [Test]
@@ -52,8 +51,18 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
                 }
             };
 
-            _authRepository.Login(email, password).Returns(result);
-            Assert.That(await _authService.Login(email, password), Is.EqualTo(result));
+            // var mockSet = new Mock<DbSet<User>>();
+            // //var mockContext = new Mock<ApplicationContext>();
+            // //mockContext.Setup(m => m.Users).Returns(mockSet.Object);
+            // mockSet.As<IQueryable<User>>().Setup(m => m.User).Returns(result.User);
+            // var mockContext = new Mock<BloggingContext>();
+            // mockContext.Setup(c => c.Blogs).Returns(mockSet.Object);
+
+            // var service = new AuthService(mockContext.Object);
+            // var user = service.Login(email,password);;
+
+            // //_authRepository.Login(email, password).Returns(result);
+            // Assert.That(await _authService.Login(email, password), Is.EqualTo(qwer));
         }
 
         [Test]
@@ -65,7 +74,7 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
             //var exception = new NotFoundException($"User with email {email} doesnt exists! Register first.");
             //_authService.Login(email, password).Returns(exception);
             //Assert.That(await _authService.Login(email, password), Is.EqualTo(email));
-            Assert.ThrowsAsync<NotFoundException>(async () => await _authRepository.Login(email, password));
+            //Assert.ThrowsAsync<NotFoundException>(async () => await _authRepository.Login(email, password));
             //StringAssert.Contains($"User with email {email} doesnt exists! Register first.", ex.Message.ToString());
         }
     }

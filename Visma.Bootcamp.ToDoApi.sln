@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visma.Bootcamp.ToDoApi", "Visma.Bootcamp.ToDoApi\Visma.Bootcamp.ToDoApi.csproj", "{DBE64138-8506-4EBE-85F8-B4F82E22B79A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visma.Bootcamp.ToDoApi.ApplicationCore", "Visma.Bootcamp.ToDoApi.ApplicationCore\Visma.Bootcamp.ToDoApi.ApplicationCore.csproj", "{0F694531-82A5-4EF4-9492-855C713F7B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visma.Bootcamp.ToDoApi.Tests", "Visma.Bootcamp.ToDoApi.Tests\Visma.Bootcamp.ToDoApi.Tests.csproj", "{954FEC3C-712A-4F98-9BFE-E29309ED0A99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBE64138-8506-4EBE-85F8-B4F82E22B79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBE64138-8506-4EBE-85F8-B4F82E22B79A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBE64138-8506-4EBE-85F8-B4F82E22B79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBE64138-8506-4EBE-85F8-B4F82E22B79A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F694531-82A5-4EF4-9492-855C713F7B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F694531-82A5-4EF4-9492-855C713F7B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F694531-82A5-4EF4-9492-855C713F7B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F694531-82A5-4EF4-9492-855C713F7B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{954FEC3C-712A-4F98-9BFE-E29309ED0A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{954FEC3C-712A-4F98-9BFE-E29309ED0A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{954FEC3C-712A-4F98-9BFE-E29309ED0A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{954FEC3C-712A-4F98-9BFE-E29309ED0A99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

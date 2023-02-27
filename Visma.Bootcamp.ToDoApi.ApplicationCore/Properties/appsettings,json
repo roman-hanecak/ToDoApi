@@ -1,0 +1,17 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "ConnectionStrings": {
+        "DefaultConnection": "server=localhost;port=3306;user=user;password=root;database=database;"
+    },
+    "Jwt": {
+        "Key": "ACDt1vR3lXToPQ1g3MyNACDt1vR3lXToPQ1g3MyN88877sddaxzcACDt1vR3lXToPQ1g3MyN",
+        "Issuer": "http://localhost:5149/",
+        "Audience": "http://localhost:5149/"
+    }
+}

@@ -10,7 +10,8 @@ using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.DTO;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Visma.Bootcamp.ToDoApi.Tests.Services
 {
@@ -26,8 +27,9 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
         }
 
         [Test]
-        public void GetUserAsync()
+        public async Task GetUserAsync_Returns_UserDto()
         {
+            Guid userId = new Guid("14c450ba-82e3-4459-9030-21d93398adae");
             UserDto user = new UserDto
             {
                 //Id = 6,
@@ -39,23 +41,49 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
                 Image = "string",
             };
 
-            var mockSet = new Mock<DbSet<User>>();
+            _userService.GetUserAsync(userId).Returns(user);
 
-            mockSet.As<IQueryable<UserDto>>().Setup(m => m.Set<UserDto>()).Returns((IQueryable<UserDto>)user);
-            // mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            // mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            // mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+            var userDto = await _userService.GetUserAsync(userId);
 
-            var mockContext = new Mock<IInfrastructure<ApplicationContext>>();
-            mockContext.Setup(c => c).Returns(mockSet.Object);
-
-            var service = new UserService(mockContext.Object);
-            var userDto = service.GetUserAsync(new Guid("14c450ba-82e3-4459-9030-21d93398adae"));
+            Assert.IsNotNull(userDto);
             Assert.IsInstanceOf(typeof(UserDto), userDto);
-            //Assert.AreEqual(user.Email, userDto.Email);
-
-            //Assert.Pass();
+            Assert.AreSame(user, userDto);
         }
+
+        [Test]
+        public async Task GetUserAsync_InvalidUserMail_Throws_()
+        {
+            Guid userId = new Guid("14c450ba-82e3-4459-9030-21d93398adae");
+
+            _userService.When(x => x.GetUserAsync(userId))
+                .Do(x => { throw new NotFoundException($"User with Id {userId} does not exist"); });
+
+            Assert.ThrowsAsync<NotFoundException>(async () => await _userService.GetUserAsync(userId));
+
+        }
+
+        [Test]
+        public async Task DeleteUserAsync_InvalidUserMail_Throws_()
+        {
+            Guid userId = new Guid("14c450ba-82e3-4459-9030-21d93398adae");
+
+            _userService.When(x => x.DeleteUserAsync(userId))
+                .Do(x => { throw new NotFoundException($"User with Id {userId} does not exist!"); });
+
+            Assert.ThrowsAsync<NotFoundException>(async () => await _userService.DeleteUserAsync(userId));
+        }
+
+        [Test]
+        public async Task DeleteUserAsync_Successful_deletion()
+        {
+            Guid userId = new Guid("14c450ba-82e3-4459-9030-21d93398adae");
+
+            //_userService.When(x => x.DeleteUserAsync(userId)).Do( x => { return NoContent(); });
+
+            Assert.ThrowsAsync<NotFoundException>(async () => await _userService.DeleteUserAsync(userId));
+            //Assert.
+        }
+
 
 
     }

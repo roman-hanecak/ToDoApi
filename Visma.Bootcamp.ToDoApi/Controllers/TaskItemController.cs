@@ -41,26 +41,7 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             return Ok(taskItemDto);
         }
 
-        [HttpPost("{task_id}")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [SwaggerOperation(
-            summary: "Create new TaskItem",
-            description: "Create new TaskItem in the database",
-            OperationId = "CreateTaskItem",
-            Tags = new[] { "TaskItem API" })]
-        public async Task<IActionResult> CreateTaskItemAsync(
-            [Required, FromRoute(Name = "task_id")] Guid taskListId,
-            [FromBody, Bind] TaskItemModel model,
-            CancellationToken ct)
-        {
-            TaskItemDto taskItemDto = await _taskItemService.CreateAsync(taskListId, model, ct);
-
-
-            return CreatedAtRoute(
-                new { task_item_id = taskItemDto.PublicId },
-                taskItemDto);
-        }
+        
 
         [HttpDelete("{task_item_id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -93,5 +93,26 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             List<TaskListDto> taskListDtos = await taskListService.GetByUserAsync(userId, ct);
             return Ok(taskListDtos);
         }
+
+        [HttpPost("{user_id}/lists")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskListDto))]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [SwaggerOperation(
+            summary: "Create new TaskList for User",
+            description: "Create new TaskList in the database",
+            OperationId = "CreateTaskList",
+            Tags = new[] { "TaskList API" })]
+        public async Task<IActionResult> CreateTaskListAsync(
+            [Required, FromRoute(Name = "user_id")] Guid userId,
+            [FromBody, Bind] TaskListModel model,
+            [FromServices] ITaskListService taskListService,
+            CancellationToken ct)
+        {
+            TaskListDto taskListDto = await taskListService.CreateAsync(userId, model, ct);
+
+            return CreatedAtRoute(
+                new { task_item_id = taskListDto.PublicId },
+                taskListDto);
+        }
     }
 }

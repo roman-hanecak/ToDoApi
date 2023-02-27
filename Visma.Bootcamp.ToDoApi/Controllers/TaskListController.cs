@@ -42,25 +42,7 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             return Ok(taskListDto);
         }
 
-        [HttpPost("{user_id}")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskListDto))]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [SwaggerOperation(
-            summary: "Create new TaskList for User",
-            description: "Create new TaskList in the database",
-            OperationId = "CreateTaskList",
-            Tags = new[] { "TaskList API" })]
-        public async Task<IActionResult> CreateTaskListAsync(
-            [Required, FromRoute(Name = "user_id")] Guid userId,
-            [FromBody, Bind] TaskListModel model,
-            CancellationToken ct)
-        {
-            TaskListDto taskListDto = await _taskListService.CreateAsync(userId, model, ct);
 
-            return CreatedAtRoute(
-                new { task_item_id = taskListDto.PublicId },
-                taskListDto);
-        }
 
         [HttpDelete("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -112,6 +94,28 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
         {
             List<TaskItemDto> taskItemDtos = await taskItemService.GetTasksByTaskList(taskListId, ct);
             return Ok(taskItemDtos);
+        }
+
+        [HttpPost("{task_list_id}/tasks")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TaskItemDto))]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [SwaggerOperation(
+            summary: "Create new TaskItem",
+            description: "Create new TaskItem in the database",
+            OperationId = "CreateTaskItem",
+            Tags = new[] { "TaskItem API" })]
+        public async Task<IActionResult> CreateTaskItemAsync(
+            [Required, FromRoute(Name = "task_list_id")] Guid taskListId,
+            [FromBody, Bind] TaskItemModel model,
+            [FromServices] ITaskItemService taskItemService,
+            CancellationToken ct)
+        {
+            TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId, model, ct);
+
+
+            return CreatedAtRoute(
+                new { task_item_id = taskItemDto.PublicId },
+                taskItemDto);
         }
     }
 }

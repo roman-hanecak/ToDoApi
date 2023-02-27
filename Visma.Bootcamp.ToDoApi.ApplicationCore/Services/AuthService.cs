@@ -8,39 +8,34 @@ using Microsoft.IdentityModel.Tokens;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.Domain;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Repositories;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 
 namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly ApplicationContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public AuthService(IConfiguration configuration, ApplicationContext context)
+
+        public AuthService(IUserRepository userRepository, IConfiguration configuration = null)
         {
+            _userRepository = userRepository;
             _configuration = configuration;
-            _context = context;
         }
 
         public async Task<Object> Login(string email, string password)
         {
-            var user = await _context.Users
-            .AsNoTracking()
-            .SingleOrDefaultAsync(w => w.Email.ToLower() == email.ToLower() && w.Password == password);
+            var user = await _userRepository.GetByLogin(email, password);
             if (user == null)
             {
-                throw new NotFoundException($"User with email {user.Email} doesnt exists! Register first.");
+                throw new NotFoundException($"User with email {email} doesnt exists! Register first.");
             }
-            // if (VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-            // {
-            //     throw new NotValidException("Invalid password!");
-            // }
 
             var token = GenerateToken(user);
             var asd = new { Token = token, User = user };
             return asd;
-
         }
 
 
@@ -58,12 +53,7 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
                 throw new NotValidException($"Email address {user.Email} is not valid!");
             }
 
-            // this.CreatePasswordHash(Password, out byte[] passwordHash, out byte[] passwordSalt);
-            // user.PasswordHash = passwordHash;
-            // user.PasswordSalt = passwordSalt;
-
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.Create(user);
             return user.Id;
         }
 
@@ -98,7 +88,7 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
 
         public async Task<bool> UserExists(string email)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+            var user = await _userRepository.GetByMail(email);
 
             if (user is null)
             {

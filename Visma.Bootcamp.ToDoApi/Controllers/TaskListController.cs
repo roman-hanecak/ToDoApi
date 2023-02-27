@@ -24,8 +24,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             _taskListService = taskListService;
         }
 
-
-
         [HttpGet("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TaskListDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -41,8 +39,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             TaskListDto taskListDto = await _taskListService.GetAsync(taskListId.Value, ct);
             return Ok(taskListDto);
         }
-
-
 
         [HttpDelete("{task_list_id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -111,7 +107,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             CancellationToken ct)
         {
             TaskItemDto taskItemDto = await taskItemService.CreateAsync(taskListId, model, ct);
-
 
             return CreatedAtRoute(
                 new { task_item_id = taskItemDto.PublicId },

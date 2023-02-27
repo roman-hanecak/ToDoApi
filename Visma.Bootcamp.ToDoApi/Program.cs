@@ -6,7 +6,9 @@ using Microsoft.OpenApi.Models;
 using MySql.EntityFrameworkCore.Extensions;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Repositories;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +29,9 @@ builder.Services.AddControllers();
 builder.Services.AddEntityFrameworkMySQL().AddDbContext<ApplicationContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(connectionString));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(connectionString));
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -56,7 +60,9 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", securitySchema);
     c.AddSecurityRequirement(securityRequirement);
 });
-
+builder.Services.AddTransient<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ITaskListRepository, TaskListRepository>();
 builder.Services.AddTransient<ITaskItemService, TaskItemService>();
 builder.Services.AddTransient<ITaskListService, TaskListService>();
 builder.Services.AddTransient<IUserService, UserService>();

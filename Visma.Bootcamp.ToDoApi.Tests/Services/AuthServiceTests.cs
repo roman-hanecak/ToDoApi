@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using NSubstitute;
-using NUnit.Framework;
-using Visma.Bootcamp.ToDoApi.ApplicationCore.Database;
+using NSubstitute.ReturnsExtensions;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Entities.Domain;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Exceptions;
+using Visma.Bootcamp.ToDoApi.ApplicationCore.Repositories;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services;
 using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 
@@ -18,16 +12,17 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
     [TestFixture]
     public class AuthServiceTests
     {
+        private IUserRepository _userRepository;
         private IAuthService _authService;
-        private ApplicationContext _context;
         private IConfiguration _config;
 
 
         [SetUp]
         public void Setup()
         {
-            _authService = Substitute.For<IAuthService>();
-            _context = Substitute.For<ApplicationContext>();
+
+            _userRepository = Substitute.For<IUserRepository>();
+            _authService = new AuthService(_userRepository);
         }
 
         [Test]
@@ -50,32 +45,24 @@ namespace Visma.Bootcamp.ToDoApi.Tests.Services
                     Image = "string",
                 }
             };
+            _userRepository.GetByLogin(email, password).Returns(result.User);
 
-            // var mockSet = new Mock<DbSet<User>>();
-            // //var mockContext = new Mock<ApplicationContext>();
-            // //mockContext.Setup(m => m.Users).Returns(mockSet.Object);
-            // mockSet.As<IQueryable<User>>().Setup(m => m.User).Returns(result.User);
-            // var mockContext = new Mock<BloggingContext>();
-            // mockContext.Setup(c => c.Blogs).Returns(mockSet.Object);
+            var userLoginResult = await _authService.Login(email, password);
 
-            // var service = new AuthService(mockContext.Object);
-            // var user = service.Login(email,password);;
-
-            // //_authRepository.Login(email, password).Returns(result);
-            // Assert.That(await _authService.Login(email, password), Is.EqualTo(qwer));
+            //generate token has always null input
+            //Assert.IsNotNull(userLoginResult);
         }
 
         [Test]
         public async Task Login_WrongEmail_Throws_NotFoundException()
         {
-            string email = "qw@ww.com";
-            string password = "ww";
+            string email = "qw@dw.com";
+            string password = "hh";
 
-            //var exception = new NotFoundException($"User with email {email} doesnt exists! Register first.");
-            //_authService.Login(email, password).Returns(exception);
-            //Assert.That(await _authService.Login(email, password), Is.EqualTo(email));
-            //Assert.ThrowsAsync<NotFoundException>(async () => await _authRepository.Login(email, password));
-            //StringAssert.Contains($"User with email {email} doesnt exists! Register first.", ex.Message.ToString());
+
+            _userRepository.GetByLogin(email, password).ReturnsNull();
+
+            Assert.ThrowsAsync<NotFoundException>(async () => await _authService.Login(email, password));
         }
     }
 }

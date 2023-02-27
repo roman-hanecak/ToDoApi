@@ -40,8 +40,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             return NoContent();
         }
 
-
-
         [HttpGet("{user_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

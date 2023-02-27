@@ -10,9 +10,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Database
 {
     public class ApplicationContextDesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
     {
-
-
-
         public ApplicationContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

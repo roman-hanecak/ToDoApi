@@ -41,8 +41,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
             return Ok(taskItemDto);
         }
 
-        
-
         [HttpDelete("{task_item_id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -18,7 +18,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Database
 
         public DbSet<TaskItem> Tasks { get; set; }
         public DbSet<TaskList> TaskLists { get; set; }
-
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

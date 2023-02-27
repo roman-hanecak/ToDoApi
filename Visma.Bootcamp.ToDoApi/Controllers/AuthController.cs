@@ -11,6 +11,7 @@ using Visma.Bootcamp.ToDoApi.ApplicationCore.Services.Interfaces;
 namespace Visma.Bootcamp.ToDoApi.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
@@ -56,7 +57,6 @@ namespace Visma.Bootcamp.ToDoApi.Controllers
         {
             try
             {
-
                 var tuple = await _authService.Login(request.Email, request.Password);
                 return StatusCode(StatusCodes.Status200OK, tuple);
             }

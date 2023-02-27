@@ -17,7 +17,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
         private readonly ApplicationContext _context;
         private readonly IConfiguration _configuration;
 
-
         public AuthService(IConfiguration configuration, ApplicationContext context)
         {
             _configuration = configuration;
@@ -32,7 +31,6 @@ namespace Visma.Bootcamp.ToDoApi.ApplicationCore.Services
             if (user == null)
             {
                 throw new NotFoundException($"User with email {user.Email} doesnt exists! Register first.");
-
             }
             // if (VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             // {
